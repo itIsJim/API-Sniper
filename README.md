@@ -17,6 +17,6 @@ todo: To Read the File into React page using Nodejs for the Server
 ## In the App </br>
   • Type in name of the API in searchbar </br>
   • Button "SEARCH" Active-> Input Only/ No Results </br>
-  • Button "CLEAR" Active-> Input to Change Search Keyword/ Result Shown </br>
+  • Button "CLEAR" Active-> Input to Change Search Keyword/ All Results Shown </br>
   
   
