@@ -5,10 +5,10 @@ todo: To Read the File into React page using Nodejs for the Server
 
 ## How to develop
 
-0. Install Node.js </br></br>
-1. Server (On Termial #1) </br>
+0. Install Node.js and two independent local ports </br></br>
+1. Server (On Terminal #1) </br>
   cd server -> npm start (Server on)  </br></br>
-2. Client (On Termial #2) </br>
+2. Client (On Terminal #2) </br>
   cd client -> npm install -> npm start (Web App on) </br></br>
 3. Link: http://localhost:3000/ (with http://localhost:3001/ as Proxy)
    
