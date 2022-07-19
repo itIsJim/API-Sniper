@@ -10,7 +10,7 @@ todo: To Read the File into React page using Nodejs for the Server
   cd server -> npm start (Server on)  </br></br>
 2. The Client (On Terminal #2) </br>
   cd client -> npm install -> npm start (Web App on) </br></br>
-3. Link: http://localhost:3000/ (with http://localhost:3001/ as Proxy)
+3. Link: http://localhost:3000/ (with http://localhost:3001/ as proxy)
    
    
    
