@@ -12,6 +12,7 @@ function App() {
   const [found, setFound] = useState(false);
   const [res, setRes] = useState(null)
   const [suggest, setSuggest] = useState([])
+  const [same, setSame] = useState("")
 
     // set up page and data
   useEffect(() => {
@@ -23,7 +24,9 @@ function App() {
   // always use the top suggestion as result
   useEffect(()=> {
       setRes(suggest[0])
-  }, [suggest])
+          if (res) {
+              res["API"].toLowerCase() === api.toLowerCase()? setSame("FOUND!") : setSame("IS IT?")
+          }}, [suggest,api])
 
     // setRes, setSuggest, setFound
   useEffect(() => {
@@ -53,10 +56,8 @@ function App() {
               setRes(null)
           }
       })
-
       finds == 0? setFound(false): setFound(true)
   }, [api])
-
 
     const Dimension = (props) => {
         return (
@@ -65,7 +66,7 @@ function App() {
                    <Row>
                        <Col>
                            <h6>
-                               DESCRIPTION
+                               ↓ DESCRIPTION ↓
                            </h6>
                            <h3>
                                <code>
@@ -75,7 +76,7 @@ function App() {
                        </Col>
                        <Col>
                            <h6>
-                               LINK
+                               ↓ LINK ↓
                            </h6>
                            <h3>
                                <code>
@@ -85,7 +86,7 @@ function App() {
                        </Col>
                        <Col>
                            <h6>
-                               CATEGORY
+                              ↓ CATEGORY ↓
                            </h6>
                            <h3>
                                <code>
@@ -99,13 +100,15 @@ function App() {
         )
   }
 
-
   return (
       <div className="App">
           {
               // search result view
               res && suggest && search?
                   <Card>
+                      <Row>
+                          <code><h3>{ same }</h3></code>
+                      </Row>
                       <Row className="api-searched">
                           <code><h2>" {res["API"]} "</h2></code>
                       </Row>
@@ -113,7 +116,6 @@ function App() {
                   </Card>
                   : <></>
           }
-
         <br/>
         <Form>
           <InputGroup className="search-api">
@@ -132,18 +134,14 @@ function App() {
             {search? "CLEAR": "SEARCH"}
           </Button>
         </Form>
-
         {
-
           search?
               <>
-                  {
-                      found ? <h2> 👇 Matching Results </h2>: <h2> 🤷‍ No Matching Results for "{api}" </h2>
-                  }
+                  { found ? <h2> 👇 Matching Results </h2>: <h2> 🤷‍ No Matching Results for "{api}" </h2> }
                   <br/>
                 <Table>
-                    {
-                        found? <thead>
+                    {found?
+                            <thead>
                                     <tr>
                                         <th>API</th>
                                         <th>DESCRIPTION</th>
@@ -152,7 +150,6 @@ function App() {
                                     </tr>
                                 </thead>
                             :<></>
-
                     }
                   <tbody>
                   {
@@ -193,10 +190,10 @@ function App() {
                   </tbody>
                 </Table>
               </>
-              :
-              <></>
+              :<></>
         }
-
+            <br/>
+          <code> Developed By Jun Mao</code>
       </div>
   );
 }
