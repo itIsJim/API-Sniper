@@ -14,7 +14,7 @@ const app = express();
 app.get("/api", (req, res) => {
     res.json(obj)
 })
-console.log(obj);
+
 
 app.listen(PORT, () => {
     console.log(`Server Listening on ${PORT}`);

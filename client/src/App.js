@@ -48,7 +48,7 @@ function App() {
         </Form>
         {
           search? <>
-                <h2>Best Suggestions 👇</h2><br/>
+                <h2> Best Suggestions 👇</h2><br/>
                 <Table>
                   <thead>
                   <tr>
