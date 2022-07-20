@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 
 const uri =
-    "mongodb+srv://jim:iyKSu9sSVGuz4uuc@cluster0.xk6wlqd.mongodb.net/?retryWrites=true&w=majority";
+    "mongodb+srv://SiciliaMia:NnauYBe86X1dktI0@cluster0.xk6wlqd.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
 
 const fs = require('fs')
@@ -19,6 +19,7 @@ async function connect() {
 
         const result = await coll.insertMany(obj.entries)
 
+        console.log(result.insertedIds)
 
     } finally {
 
