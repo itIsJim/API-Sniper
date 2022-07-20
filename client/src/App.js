@@ -1,6 +1,10 @@
 import './App.css';
 import {useState, useEffect} from "react";
-import {Button, Card, Form, InputGroup, Table} from "react-bootstrap";
+import {Button, Form, InputGroup, Table} from "react-bootstrap";
+
+const SuggestionHeader = (f) => {
+    return
+}
 
 
 
@@ -11,7 +15,7 @@ function App() {
   const [data, setData] = useState([]);
   const [api, setApi] = useState("");
   const [search, setSearch] = useState(false);
-  const [numFound, setNumFound] = useState(0);
+  const [found, setFound] = useState(false);
 
   useEffect(() => {
     fetch('/api')
@@ -21,8 +25,28 @@ function App() {
 
 
   useEffect(() => {
+      let finds = 0;
+      if (api === "") {
+          setFound(true)
+      }
 
-  }, [search])
+      data.map(e=> {
+          flag = 0;
+          let n = (api.length < e["API"].length)? api.length: e["API"].length
+          for (i = 0; i < n; i++) {
+              if (e["API"][i].toLowerCase() !== api[i].toLowerCase()) {
+                  flag = 1;
+                  break;
+              }
+          }
+          if (flag === 0 && api.length <= e["API"].length) {
+              finds++
+          }
+      })
+      finds == 0? setFound(false): setFound(true)
+  }, [api])
+
+
 
 
   return (
@@ -34,7 +58,6 @@ function App() {
             <Form.Control className="api" type="text" placeholder="API"
                           onChange={(e)=> {
                             setApi(e.target.value);
-                            console.log(e.target.value)
                           }}/>
           </InputGroup>
           <br/>
@@ -46,18 +69,28 @@ function App() {
             {search? "CLEAR": "SEARCH"}
           </Button>
         </Form>
+
         {
-          search? <>
-                <h2> Best Suggestions 👇</h2><br/>
+
+          search?
+              <>
+                  {
+                      found ? <h2> 👇 Matching Results </h2>: <h2> 🤷‍ No Matching Results for "{api}" </h2>
+                  }
+                  <br/>
                 <Table>
-                  <thead>
-                  <tr>
-                    <th>API</th>
-                    <th>DESCRIPTION</th>
-                    <th>LINK</th>
-                    <th>CATEGORY</th>
-                  </tr>
-                  </thead>
+                    {
+                        found? <thead>
+                                    <tr>
+                                        <th>API</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>LINK</th>
+                                        <th>CATEGORY</th>
+                                    </tr>
+                                </thead>
+                            :<></>
+
+                    }
                   <tbody>
                   {
                     data.map(e=> {
@@ -65,9 +98,7 @@ function App() {
                       if (api === "") {
                         return (
                             <tr>
-                              <td>
-                                {e["API"]}
-                              </td>
+                              <td>{e["API"]}</td>
                               <td>{e["Description"]}</td>
                               <td>{e["Link"]}</td>
                               <td>{e["Category"]}</td>
@@ -75,13 +106,14 @@ function App() {
                         )
                       }
                       else {
-                        for (i = 0; i < (api).length; i++) {
+                          let n = (api.length < e["API"].length)? api.length: e["API"].length
+                        for (i = 0; i < n; i++) {
                           if (e["API"][i].toLowerCase() !== api[i].toLowerCase()) {
-                            flag = 1
+                            flag = 1;
                             break;
                           }
                         }
-                        if (flag === 0) {
+                        if (flag === 0 && api.length <= e["API"].length) {
                           return (
                               <tr>
                                 <td>{e["API"]}</td>
@@ -92,16 +124,16 @@ function App() {
                           )
                         }
                       }
-
                     })
                   }
                   </tbody>
                 </Table>
               </>
-              :<></>
+              :
+              <></>
         }
-      </div>
 
+      </div>
   );
 }
 
