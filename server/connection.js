@@ -1,4 +1,3 @@
-// fetch data from server/inText.txt
 const fs = require('fs')
 
 let raw = fs.readFileSync('inText')
