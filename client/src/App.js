@@ -1,12 +1,6 @@
 import './App.css';
 import {useState, useEffect} from "react";
-import {Button, Form, InputGroup, Table} from "react-bootstrap";
-
-const SuggestionHeader = (f) => {
-    return
-}
-
-
+import {Button, Card, Col, Form, InputGroup, Row, Table} from "react-bootstrap";
 
 function App() {
 
@@ -16,16 +10,26 @@ function App() {
   const [api, setApi] = useState("");
   const [search, setSearch] = useState(false);
   const [found, setFound] = useState(false);
+  const [res, setRes] = useState(null)
+  const [suggest, setSuggest] = useState([])
 
+    // set up page and data
   useEffect(() => {
     fetch('/api')
         .then((res) => res.json())
         .then((data) => setData(data.entries));
   }, []);
 
+  // always use the top suggestion as result
+  useEffect(()=> {
+      setRes(suggest[0])
+  }, [suggest])
 
+    // setRes, setSuggest, setFound
   useEffect(() => {
       let finds = 0;
+      let arr = [];
+
       if (api === "") {
           setFound(true)
       }
@@ -40,18 +44,77 @@ function App() {
               }
           }
           if (flag === 0 && api.length <= e["API"].length) {
-              finds++
+              arr.push(e);
+              finds++;
+              setSuggest(arr);
+
+          }
+          if (api.length >= e["API"].length) {
+              setRes(null)
           }
       })
+
       finds == 0? setFound(false): setFound(true)
   }, [api])
 
 
+    const Dimension = (props) => {
+        return (
+           <>
+               <Row>
+                   <Row>
+                       <Col>
+                           <h6>
+                               DESCRIPTION
+                           </h6>
+                           <h3>
+                               <code>
+                                   {props.res["Description"]}
+                               </code>
+                           </h3>
+                       </Col>
+                       <Col>
+                           <h6>
+                               LINK
+                           </h6>
+                           <h3>
+                               <code>
+                                   {props.res["Link"]}
+                               </code>
+                           </h3>
+                       </Col>
+                       <Col>
+                           <h6>
+                               CATEGORY
+                           </h6>
+                           <h3>
+                               <code>
+                                   {props.res["Category"]}
+                               </code>
+                           </h3>
+                       </Col>
+                   </Row>
+               </Row>
+           </>
+        )
+  }
 
 
   return (
       <div className="App">
+          {
+              // search result view
+              res && suggest && search?
+                  <Card>
+                      <Row className="api-searched">
+                          <code><h2>" {res["API"]} "</h2></code>
+                      </Row>
+                      <Dimension res={res}/>
+                  </Card>
+                  : <></>
+          }
 
+        <br/>
         <Form>
           <InputGroup className="search-api">
             <InputGroup.Text><code> Enter Name of API </code></InputGroup.Text>
@@ -97,11 +160,11 @@ function App() {
                       flag = 0;
                       if (api === "") {
                         return (
-                            <tr>
-                              <td>{e["API"]}</td>
-                              <td>{e["Description"]}</td>
-                              <td>{e["Link"]}</td>
-                              <td>{e["Category"]}</td>
+                            <tr key={data.indexOf(e) + "a"}>
+                              <td key={data.indexOf(e) + "d1"}>{e["API"]}</td>
+                              <td key={data.indexOf(e) + "d2"}>{e["Description"]}</td>
+                              <td key={data.indexOf(e) + "d3"}>{e["Link"]}</td>
+                              <td key={data.indexOf(e) + "d4"}>{e["Category"]}</td>
                             </tr>
                         )
                       }
@@ -114,12 +177,13 @@ function App() {
                           }
                         }
                         if (flag === 0 && api.length <= e["API"].length) {
-                          return (
-                              <tr>
-                                <td>{e["API"]}</td>
-                                <td>{e["Description"]}</td>
-                                <td>{e["Link"]}</td>
-                                <td>{e["Category"]}</td>
+                            n++;
+                            return (
+                              <tr key={data.indexOf(e)+ n + "b"}>
+                                <td key={n + "d1"}>{e["API"]}</td>
+                                <td key={n + 'd2'}>{e["Description"]}</td>
+                                <td key={n + "d3"}>{e["Link"]}</td>
+                                <td key={n + "d4"}>{e["Category"]}</td>
                               </tr>
                           )
                         }
