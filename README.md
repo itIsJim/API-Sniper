@@ -3,18 +3,38 @@
 Pre-interview Assignment by **Jun Mao** </br>
 todo: To Read the File into React page using Nodejs for the Server
 
+## The App
+  The App will allow the user to search for the ''Description', 'Link', 'Category' of an API from the JSON file provided, with the name of API typed in the search bar. The system will return the most relatable (top of the list) to the view at the header, and a list of suggestions with words sharing the same letter(s). Should there be no matching results, there will not be the list nor the view.
+
 ## How to develop
 
-0. Install Node.js and two local ports </br></br>
-1. The Server (On Terminal #1) </br>
-  cd server -> npm start (Server on)  </br></br>
-2. The Client (On Terminal #2) </br>
-  cd client -> npm install -> npm start (Web App on) </br></br>
-3. Link: http://localhost:3000/ (with http://localhost:3001/ as proxy)
+0. Install Node.js and two local ports 
+
+     ```
+     npm i node
+     ```
+      
+1. The Server (Proxy: http://localhost:3001/) 
+
+    ```
+    cd server 
+    npm start <- server on  
+    ```  
+    
+2. The Client (Link: http://localhost:3000/) 🚀
+    ```
+    cd client
+    npm install
+    npm start <- web app on 
+    ```
+    
+3. To Store Data in Mongodb
+    ```
+    cd server
+    node connection.js
+    ```
    
-   
-   
-## In the App </br>
+## Instruction
   • Type in the Name of the API in the Search Bar </br>
   • Button "SEARCH" Active -> Input Only/ No Results </br>
   • Button "CLEAR" Active -> Input to Change Search Keyword/ Dashboard with Search Results </br>
