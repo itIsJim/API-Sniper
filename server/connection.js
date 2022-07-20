@@ -5,7 +5,6 @@ let raw = fs.readFileSync('inText')
 
 let obj = JSON.parse(raw);
 
-// Store the data onto Mongodb
 const { MongoClient } = require("mongodb");
 
 const uri =
