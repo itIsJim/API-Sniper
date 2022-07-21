@@ -9,7 +9,7 @@ todo: To Read the File into React page using Nodejs for the Server
 
 ## How to develop
 
-0. Install Node.js and two local ports 
+0. Install Node.js and reserve two local ports
 
      ```
      npm i node
