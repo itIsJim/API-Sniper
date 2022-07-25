@@ -1,6 +1,6 @@
 # SiciliaMia
 
-Pre-interview Assignment by **Jun Mao** </br>
+Assignment by **Jun Mao** </br>
 todo: To Read the File into React page using Nodejs for the Server
 
 ## The App
