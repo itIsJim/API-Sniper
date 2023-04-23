@@ -7,7 +7,7 @@ let obj = JSON.parse(raw);
 const { MongoClient } = require("mongodb");
 
 const uri =
-    "mongodb+srv://SiciliaMia:NnauYBe86X1dktI0@cluster0.xk6wlqd.mongodb.net/?retryWrites=true&w=majority";
+    "";
 const client = new MongoClient(uri);
 
 async function connect() {
