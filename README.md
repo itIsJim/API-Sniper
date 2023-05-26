@@ -1,7 +1,4 @@
-# SiciliaMia
-
-Assignment by **Jun Mao** </br>
-todo: To Read the File into React page using Nodejs for the Server
+# API-Sniper
 
 ## The App
 ![search-found](https://github.com/itIsJim/SiciliaMia/blob/bbce8c160bc3e47657188e36810a940b45c6f3e5/search-found.png)
